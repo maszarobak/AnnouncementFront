@@ -1,23 +1,36 @@
-import logo from './logo.svg';
 import './App.css';
+import { useEffect } from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+
+import { listAnnouncement } from './actions/announcementAction';
 
 function App() {
+  const dispatch = useDispatch();
+  const announcementList = useSelector(state=>state.announcementList);
+  const {loading, error, announcement} = announcementList;
+
+  useEffect(()=>{
+      dispatch(listAnnouncement({}));
+  }, [dispatch]);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    
+          
+             
+                    {announcement.map((a)=> (
+                            <div key={a.id}>
+                            
+
+                            
+                            <h2>{a.tytul}</h2>
+                            
+                            <p>{a.wydzial}</p>
+                        </div>
+                    ))}
+              
+            
+            
+      
     </div>
   );
 }
